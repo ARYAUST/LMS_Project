@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+reports/*
+!reports/.gitkeep
+screenshots/*
+!screenshots/.gitkeep
+traces/*
+!traces/.gitkeep
+instance/*.sqlite
+instance/*.db
+playwright/.cache/

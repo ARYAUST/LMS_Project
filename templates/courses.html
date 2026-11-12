@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Explore courses | Northstar Learning{% endblock %}
+{% block content %}
+<section class="page-heading"><p class="eyebrow">EXPLORE</p><h1>Find your next skill.</h1><p>Practical courses for curious people and ambitious plans.</p></section>
+<form class="filters" method="get" aria-label="Course filters">
+  <label class="search-label" for="search">Search courses</label><input id="search" name="search" placeholder="Try Python or design" value="{{ search }}">
+  <label for="category">Category</label><select id="category" name="category"><option value="">All categories</option>{% for item in ['Programming', 'Design', 'Data'] %}<option value="{{ item }}" {% if selected_category == item %}selected{% endif %}>{{ item }}</option>{% endfor %}</select>
+  <button type="submit">Search</button>
+</form>
+<section class="course-grid" aria-label="Available courses">
+  {% for course in courses %}<article class="course-card"><p class="course-category">{{ course.category }}</p><h2><a href="{{ url_for('course_detail', course_id=course.id) }}">{{ course.title }}</a></h2><p>{{ course.description }}</p><p class="instructor">With {{ course.instructor }}</p><a class="text-link" href="{{ url_for('course_detail', course_id=course.id) }}">View course <span aria-hidden="true">&#8594;</span></a></article>
+  {% else %}<p class="empty-state">No courses match your search. Try another term or category.</p>{% endfor %}
+</section>
+{% endblock %}

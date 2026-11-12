@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Northstar Learning{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('courses') }}"><span class="brand-mark">N</span> Northstar <span class="brand-light">Learning</span></a>
+    <nav aria-label="Main navigation">
+      <a href="{{ url_for('courses') }}">Courses</a>
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('dashboard') }}">My learning</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a class="nav-action" href="{{ url_for('logout') }}">Log out</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Log in</a>
+        <a class="nav-action" href="{{ url_for('register') }}">Create account</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<section class="messages" aria-live="polite">{% for category, message in messages %}<p class="message {{ category }}">{{ message }}</p>{% endfor %}</section>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer>Learn something useful today.</footer>
+</body>
+</html>
